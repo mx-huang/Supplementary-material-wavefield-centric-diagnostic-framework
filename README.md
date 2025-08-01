@@ -124,4 +124,33 @@ In our implementation, the specific parameters are set to **$\alpha = 0.7$**, **
 
 ### 2.6 Ablation Study
 
-This section details the ablation experiments conducted to evaluate the contributions of different components of the model.
+In the architecture of the UWI-ConvLSTM model proposed in this study, two primary parameters influence model performance: the number of ConvLSTM layers, which capture spatio-temporal information, and the kernel size used within each ConvLSTM layer. The former affects the model's ability to capture long-term dependencies and hierarchical feature complexity within the time series data. The latter determines the receptive field of the ConvLSTM layer for spatial feature extraction at each time step.
+
+To determine the optimal parameters for ultrasonic wavefield image feature extraction, we conducted a series of ablation experiments. The experimental groups are defined as follows:
+
+* **Group 1 (Baseline):** The original proposed model architecture.
+* **Group 2 (M-depth-shallow):** A shallower network created by removing the second ConvLSTM layer from the baseline model.
+* **Group 3 (M-depth-deep):** A deeper network created by duplicating the second ConvLSTM layer in the baseline model.
+* **Group 4 (M-kernel-small):** The baseline model architecture, but with the kernel size in each ConvLSTM layer changed from 3x3 to 2x3.
+* **Group 5 (M-kernel-large):** The baseline model architecture, but with the kernel size in each ConvLSTM layer changed from 3x3 to 3x4.
+
+Finally, we evaluated the performance trade-offs of each model by comparing their trainable parameters (Params.), average time per epoch (Avg-time), and final loss values.
+
+## 3. SLDV Scan Settings
+
+### 3.1 Instrument Parameters
+
+The experimental data was acquired using a Scanning Laser Doppler Vibrometer (SLDV) from Sunnyinnovation Optical Intelligence.
+
+* **Laser Source:** He-Ne laser with a wavelength of 632.8 nm.
+* **Focusing:** The instrument's autofocus feature was enabled, which adaptively adjusts the laser spot size to maintain focus across the scanning area.
+
+### 3.2 Scanning Parameters
+
+* **Scan Area:** 400 mm × 400 mm
+* **Scan Grid:** 100 × 100 points
+* **Spatial Resolution:** 4 mm, which satisfies the spatial sampling requirements for the observed wavelengths.
+* **Sampling Rate:** 2 MHz
+* **Filtering:**
+    * A 500 kHz low-pass filter was applied by the instrument's control system during data acquisition.
+    * Post-acquisition, the collected data was processed with a second-order Butterworth bandpass filter with cutoff frequencies set at 50 kHz and 200 kHz.
