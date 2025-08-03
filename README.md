@@ -135,7 +135,17 @@ To determine the optimal parameters for ultrasonic wavefield image feature extra
 * **Group 5 (M-kernel-large):** The baseline model architecture, but with the kernel size in each ConvLSTM layer changed from 3x3 to 3x4.
 
 Finally, we evaluated the performance trade-offs of each model by comparing their trainable parameters (Params.), average time per epoch (Avg-time), and final loss values.
+### Table 2. The results of the ablation study
 
+| Group | N_ConvLSTM | kernel size | Params | Avg-time (s) | Loss |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Baseline** | **3** | **(3×3)** | **17569** | **3285** | **0.2907** |
+| M-depth-shallow | 2 | (3×3) | 16237 | 2818 | 0.2954 |
+| M-depth-deep | 4 | (3×3) | 20197 | 4124 | 0.2963 |
+| M-kernel-small | 3 | (2×3) | 11773 | 2763 | 0.2990 |
+| M-kernel-large | 3 | (3×4) | 23365 | 4209 | 0.2867 |
+
+Table 2 presents the results of the ablation study. While increasing the number of ConvLSTM layers enhances the model's capacity for processing complex sequential data, it did not yield a corresponding performance improvement. This suggests that the three-layer ConvLSTM configuration is sufficient for the task at hand. Conversely, enlarging the kernel size did improve model performance by providing a larger receptive field. However, this modification led to a substantial increase in both the number of model parameters and the required training time, thereby elevating the computational cost. Therefore, considering the trade-off between performance and cost, the proposed architecture is deemed a well-balanced and justified choice.
 ## 3. SLDV Scan Settings
 
 ### 3.1 Instrument Parameters
